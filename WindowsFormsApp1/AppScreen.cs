@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,47 @@ namespace WindowsFormsApp1
 {
     public partial class app_screen : Form
     {
+        public static app_screen instance;
+        private MySqlConnection connection;
+        private MySqlCommand command;
+        private MySqlDataReader reader;
+        private string connectionString = "server=localhost;user id=victor;password=qwerty123;persistsecurityinfo=True;database=cned;SslMode=none";
+
         public app_screen()
         {
             InitializeComponent();
+            instance = this;
+            InitConnection();
+            RecupPersonnel();
+        }
+        private void InitConnection()
+        {
+            try
+            {
+
+                connection = new MySqlConnection(connectionString);
+                connection.Open();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                Environment.Exit(0);
+
+            }
+        }
+
+        private void RecupPersonnel()
+        {
+            string query = "select * from personnel";
+            command = new MySqlCommand(query, connection);
+            command.Prepare();
+            reader = command.ExecuteReader();
+            lstBox_personnel.Items.Clear();
+            while (reader.Read())
+            {
+                lstBox_personnel.Items.Add(reader["nom"]);
+            }
+            reader.Close();
         }
 
         private void Form1_Load(object sender, EventArgs e)

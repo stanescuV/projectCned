@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
 {
     public partial class app_login : Form
     {
+        public static app_login instance;
         private MySqlConnection connection;
         private MySqlCommand command;
         private MySqlDataReader reader;
@@ -20,11 +21,46 @@ namespace WindowsFormsApp1
         public app_login()
         {
             InitializeComponent();
+            InitConnection();
+            //RecupPersonnel();
         }
 
+        private void InitConnection()
+        {
+            try
+            {
+
+            connection = new MySqlConnection(connectionString);
+            connection.Open();
+            } catch(MySqlException e)
+            {
+                Console.WriteLine(e.Message);
+                Environment.Exit(0);
+                
+            }
+        }
+        /*
+        private void RecupPersonnel()
+        {
+            string query = "select * from personnel";
+            command = new MySqlCommand(query, connection);
+            command.Prepare();
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+
+            }
+        }
+        */
         private void app_login_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_login_Click(object sender, EventArgs e)
+        {
+            app_screen app = new app_screen();
+            app.Show();
         }
     }
 }
