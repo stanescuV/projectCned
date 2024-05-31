@@ -44,19 +44,33 @@ namespace WindowsFormsApp1
 
         private void RecupPersonnel()
         {
-            string query = "select * from personnel";
+            string query = "SELECT * FROM personnel";
             command = new MySqlCommand(query, connection);
             command.Prepare();
             reader = command.ExecuteReader();
             lstBox_personnel.Items.Clear();
-            while (reader.Read())
+                while (reader.Read())
             {
-                lstBox_personnel.Items.Add(reader["nom"]);
+                string displayText = $"{reader["nom"]} {reader["prenom"]} - {reader["mail"]} - {reader["tel"]} ";
+                lstBox_personnel.Items.Add(displayText);
             }
-            reader.Close();
+        reader.Close();
+}
+
+        private void app_screen_Load(object sender, EventArgs e)
+        {
+
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void btn_add_personnel_Click(object sender, EventArgs e)
+        {
+            add_personnel addP = new add_personnel();
+            addP.ShowDialog();
+            
+
+        }
+
+        private void btn_delete_personnel_Click(object sender, EventArgs e)
         {
 
         }

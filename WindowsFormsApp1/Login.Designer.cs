@@ -67,6 +67,7 @@ namespace WindowsFormsApp1
             this.input_password.Name = "input_password";
             this.input_password.Size = new System.Drawing.Size(222, 22);
             this.input_password.TabIndex = 3;
+            this.input_password.UseSystemPasswordChar = true;
             // 
             // btn_login
             // 
@@ -88,9 +89,11 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.input_username);
             this.Controls.Add(this.lbl_password);
             this.Controls.Add(this.lbl_username);
+            this.KeyPreview = true;
             this.Name = "app_login";
             this.Text = "Login Screen";
             this.Load += new System.EventHandler(this.app_login_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.app_login_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -33,12 +33,13 @@ namespace WindowsFormsApp1
             this.lstBox_absences = new System.Windows.Forms.ListBox();
             this.lbl_personnel = new System.Windows.Forms.Label();
             this.lbl_absences = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_add_personnel = new System.Windows.Forms.Button();
+            this.btn_modify_personnel = new System.Windows.Forms.Button();
+            this.btn_delete_personnel = new System.Windows.Forms.Button();
+            this.btn_delete_absence = new System.Windows.Forms.Button();
+            this.btn_modify_absence = new System.Windows.Forms.Button();
+            this.btn_add_absence = new System.Windows.Forms.Button();
+            this.lbl_selected_personnel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstBox_personnel
@@ -47,16 +48,16 @@ namespace WindowsFormsApp1
             this.lstBox_personnel.ItemHeight = 16;
             this.lstBox_personnel.Location = new System.Drawing.Point(19, 61);
             this.lstBox_personnel.Name = "lstBox_personnel";
-            this.lstBox_personnel.Size = new System.Drawing.Size(322, 196);
+            this.lstBox_personnel.Size = new System.Drawing.Size(503, 196);
             this.lstBox_personnel.TabIndex = 0;
             // 
             // lstBox_absences
             // 
             this.lstBox_absences.FormattingEnabled = true;
             this.lstBox_absences.ItemHeight = 16;
-            this.lstBox_absences.Location = new System.Drawing.Point(12, 325);
+            this.lstBox_absences.Location = new System.Drawing.Point(19, 325);
             this.lstBox_absences.Name = "lstBox_absences";
-            this.lstBox_absences.Size = new System.Drawing.Size(329, 196);
+            this.lstBox_absences.Size = new System.Drawing.Size(503, 196);
             this.lstBox_absences.TabIndex = 1;
             // 
             // lbl_personnel
@@ -71,84 +72,95 @@ namespace WindowsFormsApp1
             // lbl_absences
             // 
             this.lbl_absences.AutoSize = true;
-            this.lbl_absences.Location = new System.Drawing.Point(9, 287);
+            this.lbl_absences.Location = new System.Drawing.Point(18, 289);
             this.lbl_absences.Name = "lbl_absences";
             this.lbl_absences.Size = new System.Drawing.Size(70, 17);
             this.lbl_absences.TabIndex = 3;
             this.lbl_absences.Text = "Absences";
             // 
-            // button1
+            // btn_add_personnel
             // 
-            this.button1.Location = new System.Drawing.Point(347, 61);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 34);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Add";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_add_personnel.Location = new System.Drawing.Point(538, 62);
+            this.btn_add_personnel.Name = "btn_add_personnel";
+            this.btn_add_personnel.Size = new System.Drawing.Size(106, 34);
+            this.btn_add_personnel.TabIndex = 4;
+            this.btn_add_personnel.Text = "Add";
+            this.btn_add_personnel.UseVisualStyleBackColor = true;
+            this.btn_add_personnel.Click += new System.EventHandler(this.btn_add_personnel_Click);
             // 
-            // button2
+            // btn_modify_personnel
             // 
-            this.button2.Location = new System.Drawing.Point(347, 101);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(106, 34);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Modify";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_modify_personnel.Location = new System.Drawing.Point(538, 102);
+            this.btn_modify_personnel.Name = "btn_modify_personnel";
+            this.btn_modify_personnel.Size = new System.Drawing.Size(106, 34);
+            this.btn_modify_personnel.TabIndex = 5;
+            this.btn_modify_personnel.Text = "Modify";
+            this.btn_modify_personnel.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_delete_personnel
             // 
-            this.button3.Location = new System.Drawing.Point(347, 141);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(106, 34);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Delete";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_delete_personnel.Location = new System.Drawing.Point(538, 142);
+            this.btn_delete_personnel.Name = "btn_delete_personnel";
+            this.btn_delete_personnel.Size = new System.Drawing.Size(106, 34);
+            this.btn_delete_personnel.TabIndex = 6;
+            this.btn_delete_personnel.Text = "Delete";
+            this.btn_delete_personnel.UseVisualStyleBackColor = true;
+            this.btn_delete_personnel.Click += new System.EventHandler(this.btn_delete_personnel_Click);
             // 
-            // button4
+            // btn_delete_absence
             // 
-            this.button4.Location = new System.Drawing.Point(347, 405);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(106, 34);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Delete";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_delete_absence.Location = new System.Drawing.Point(538, 402);
+            this.btn_delete_absence.Name = "btn_delete_absence";
+            this.btn_delete_absence.Size = new System.Drawing.Size(106, 35);
+            this.btn_delete_absence.TabIndex = 9;
+            this.btn_delete_absence.Text = "Delete";
+            this.btn_delete_absence.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btn_modify_absence
             // 
-            this.button5.Location = new System.Drawing.Point(347, 365);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(106, 34);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Modify";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_modify_absence.Location = new System.Drawing.Point(538, 362);
+            this.btn_modify_absence.Name = "btn_modify_absence";
+            this.btn_modify_absence.Size = new System.Drawing.Size(106, 35);
+            this.btn_modify_absence.TabIndex = 8;
+            this.btn_modify_absence.Text = "Modify";
+            this.btn_modify_absence.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btn_add_absence
             // 
-            this.button6.Location = new System.Drawing.Point(347, 325);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(106, 34);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "Add";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btn_add_absence.Location = new System.Drawing.Point(538, 322);
+            this.btn_add_absence.Name = "btn_add_absence";
+            this.btn_add_absence.Size = new System.Drawing.Size(106, 35);
+            this.btn_add_absence.TabIndex = 7;
+            this.btn_add_absence.Text = "Add";
+            this.btn_add_absence.UseVisualStyleBackColor = true;
+            // 
+            // lbl_selected_personnel
+            // 
+            this.lbl_selected_personnel.AutoSize = true;
+            this.lbl_selected_personnel.Location = new System.Drawing.Point(109, 289);
+            this.lbl_selected_personnel.Name = "lbl_selected_personnel";
+            this.lbl_selected_personnel.Size = new System.Drawing.Size(0, 17);
+            this.lbl_selected_personnel.TabIndex = 10;
             // 
             // app_screen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(467, 533);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(661, 533);
+            this.Controls.Add(this.lbl_selected_personnel);
+            this.Controls.Add(this.btn_delete_absence);
+            this.Controls.Add(this.btn_modify_absence);
+            this.Controls.Add(this.btn_add_absence);
+            this.Controls.Add(this.btn_delete_personnel);
+            this.Controls.Add(this.btn_modify_personnel);
+            this.Controls.Add(this.btn_add_personnel);
             this.Controls.Add(this.lbl_absences);
             this.Controls.Add(this.lbl_personnel);
             this.Controls.Add(this.lstBox_absences);
             this.Controls.Add(this.lstBox_personnel);
             this.Name = "app_screen";
             this.Text = "Gestionnaire d\'absences";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.app_screen_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,11 +172,12 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.ListBox lstBox_absences;
         private System.Windows.Forms.Label lbl_personnel;
         private System.Windows.Forms.Label lbl_absences;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btn_add_personnel;
+        private System.Windows.Forms.Button btn_modify_personnel;
+        private System.Windows.Forms.Button btn_delete_personnel;
+        private System.Windows.Forms.Button btn_delete_absence;
+        private System.Windows.Forms.Button btn_modify_absence;
+        private System.Windows.Forms.Button btn_add_absence;
+        private System.Windows.Forms.Label lbl_selected_personnel;
     }
 }
