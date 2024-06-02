@@ -50,6 +50,7 @@ namespace WindowsFormsApp1
             this.lstBox_personnel.Name = "lstBox_personnel";
             this.lstBox_personnel.Size = new System.Drawing.Size(503, 196);
             this.lstBox_personnel.TabIndex = 0;
+            this.lstBox_personnel.SelectedIndexChanged += new System.EventHandler(this.lstBox_personnel_SelectedIndexChanged);
             // 
             // lstBox_absences
             // 
@@ -96,6 +97,7 @@ namespace WindowsFormsApp1
             this.btn_modify_personnel.TabIndex = 5;
             this.btn_modify_personnel.Text = "Modify";
             this.btn_modify_personnel.UseVisualStyleBackColor = true;
+            this.btn_modify_personnel.Click += new System.EventHandler(this.btn_modify_personnel_Click);
             // 
             // btn_delete_personnel
             // 

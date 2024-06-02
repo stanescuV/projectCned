@@ -157,6 +157,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.lbl_nom);
             this.Name = "modify_personnel";
             this.Text = "modify_personnel";
+            this.Load += new System.EventHandler(this.modify_personnel_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

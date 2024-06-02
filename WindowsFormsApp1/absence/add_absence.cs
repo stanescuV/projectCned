@@ -16,5 +16,12 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
+
+        private void datedebutPicker_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
