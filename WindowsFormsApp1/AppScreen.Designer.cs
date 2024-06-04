@@ -60,6 +60,7 @@ namespace WindowsFormsApp1
             this.lstBox_absences.Name = "lstBox_absences";
             this.lstBox_absences.Size = new System.Drawing.Size(503, 196);
             this.lstBox_absences.TabIndex = 1;
+            this.lstBox_absences.SelectedIndexChanged += new System.EventHandler(this.lstBox_absences_SelectedIndexChanged);
             // 
             // lbl_personnel
             // 
@@ -117,6 +118,7 @@ namespace WindowsFormsApp1
             this.btn_delete_absence.TabIndex = 9;
             this.btn_delete_absence.Text = "Delete";
             this.btn_delete_absence.UseVisualStyleBackColor = true;
+            this.btn_delete_absence.Click += new System.EventHandler(this.btn_delete_absence_Click);
             // 
             // btn_modify_absence
             // 
@@ -126,6 +128,7 @@ namespace WindowsFormsApp1
             this.btn_modify_absence.TabIndex = 8;
             this.btn_modify_absence.Text = "Modify";
             this.btn_modify_absence.UseVisualStyleBackColor = true;
+            this.btn_modify_absence.Click += new System.EventHandler(this.btn_modify_absence_Click);
             // 
             // btn_add_absence
             // 
@@ -135,6 +138,7 @@ namespace WindowsFormsApp1
             this.btn_add_absence.TabIndex = 7;
             this.btn_add_absence.Text = "Add";
             this.btn_add_absence.UseVisualStyleBackColor = true;
+            this.btn_add_absence.Click += new System.EventHandler(this.btn_add_absence_Click);
             // 
             // lbl_selected_personnel
             // 

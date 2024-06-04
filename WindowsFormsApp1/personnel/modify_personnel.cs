@@ -8,31 +8,14 @@ namespace WindowsFormsApp1
     public partial class modify_personnel : Form
     {
         private Personnel selectedPersonnel;
-        private MySqlConnection connection;
-        private MySqlCommand command;
-        private MySqlDataReader reader;
-        private string connectionString = "server=localhost;user id=victor;password=qwerty123;persistsecurityinfo=True;database=cned;SslMode=none";
+        private DataConnection connectionDb;
 
         public modify_personnel(Personnel personnel)
         {
             InitializeComponent();
-            InitConnection();
+            connectionDb = new DataConnection();
             selectedPersonnel = personnel;
             RecupServices(); // Ensure this is called before PopulateFields
-        }
-
-        private void InitConnection()
-        {
-            try
-            {
-                connection = new MySqlConnection(connectionString);
-                connection.Open();
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine(e.Message);
-                Environment.Exit(0);
-            }
         }
 
         private void PopulateFields()
@@ -57,26 +40,12 @@ namespace WindowsFormsApp1
 
         private void RecupServices()
         {
-            string query = "SELECT idservice, nom FROM service";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Prepare();
-            MySqlDataReader reader = command.ExecuteReader();
             cbx_idservice.Items.Clear(); // Clear the ComboBox before populating it
-
-            while (reader.Read())
-            {
-                Service service = new Service
-                {
-                    IdService = Convert.ToInt32(reader["idservice"]),
-                    Nom = reader["nom"].ToString()
-                };
-                cbx_idservice.Items.Add(service);
-            }
-            reader.Close();
+            cbx_idservice.Items.AddRange(connectionDb.RecupServices().ToArray());
             PopulateFields(); // Populate fields after services are loaded
         }
 
-        private void btn_modify_personnel_Click(object sender, EventArgs e)
+        private void btn_modify_personnel_Click_1(object sender, EventArgs e)
         {
             string nom = input_nom.Text;
             string prenom = input_prenom.Text;
@@ -92,30 +61,25 @@ namespace WindowsFormsApp1
             Service selectedService = (Service)cbx_idservice.SelectedItem;
             int idservice = selectedService.IdService;
 
-            string query = "UPDATE personnel SET nom = @nom, prenom = @prenom, mail = @mail, tel = @tel, idservice = @idservice WHERE idpersonnel = @idpersonnel";
-            MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@nom", nom);
-            command.Parameters.AddWithValue("@prenom", prenom);
-            command.Parameters.AddWithValue("@mail", mail);
-            command.Parameters.AddWithValue("@tel", tel);
-            command.Parameters.AddWithValue("@idservice", idservice);
-            command.Parameters.AddWithValue("@idpersonnel", selectedPersonnel.IdPersonnel);
-
-            try
+            DialogResult result = MessageBox.Show("Do you want to update this worker?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
-                command.ExecuteNonQuery();
-                MessageBox.Show("Personnel updated successfully!");
-                this.Close();
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
+                try
+                {
+                    connectionDb.UpdatePersonnel(selectedPersonnel.IdPersonnel, nom, prenom, mail, tel, idservice);
+                    MessageBox.Show("Personnel updated successfully!");
+                    this.Close();
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
         }
 
         private void modify_personnel_Load(object sender, EventArgs e)
         {
-            // Optionally, move RecupServices() here if you prefer
+
         }
     }
 }

@@ -50,13 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dbClasses\Absence.cs" />
     <Compile Include="absence\add_absence.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="absence\add_absence.Designer.cs">
       <DependentUpon>add_absence.cs</DependentUpon>
     </Compile>
-    <Compile Include="Personnel.cs" />
+    <Compile Include="DataConnection.cs" />
+    <Compile Include="exeption\DeletionException.cs" />
+    <Compile Include="exeption\ModifyException.cs" />
+    <Compile Include="dbClasses\Motif.cs" />
+    <Compile Include="dbClasses\Personnel.cs" />
     <Compile Include="personnel\add_personnel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,11 +92,14 @@
     <Compile Include="personnel\modify_personnel.Designer.cs">
       <DependentUpon>modify_personnel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Service.cs" />
+    <Compile Include="dbClasses\Service.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="absence\add_absence.resx">
       <DependentUpon>add_absence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="absence\modify_absence.resx">
+      <DependentUpon>modify_absence.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AppScreen.resx">
       <DependentUpon>AppScreen.cs</DependentUpon>

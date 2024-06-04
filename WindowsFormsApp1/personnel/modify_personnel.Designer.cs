@@ -51,6 +51,7 @@ namespace WindowsFormsApp1
             this.btn_modify_personnel.TabIndex = 21;
             this.btn_modify_personnel.Text = "Modify";
             this.btn_modify_personnel.UseVisualStyleBackColor = true;
+            this.btn_modify_personnel.Click += new System.EventHandler(this.btn_modify_personnel_Click_1);
             // 
             // cbx_idservice
             // 

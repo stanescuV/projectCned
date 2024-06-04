@@ -9,31 +9,15 @@ namespace WindowsFormsApp1
     public partial class app_login : Form
     {
         public static app_login instance;
-        private MySqlConnection connection;
-        private MySqlCommand command;
-        private MySqlDataReader reader;
-        private readonly string connectionString = "server=localhost;user id=victor;password=qwerty123;persistsecurityinfo=True;database=cned;SslMode=none";
+        private DataConnection connectionDb;
 
         public app_login()
         {
             InitializeComponent();
-            InitConnection();
+            connectionDb = new DataConnection();
             this.KeyPreview = true; // Ensure the form can receive key press events
         }
 
-        private void InitConnection()
-        {
-            try
-            {
-                connection = new MySqlConnection(connectionString);
-                connection.Open();
-            }
-            catch (MySqlException e)
-            {
-                Console.WriteLine(e.Message);
-                Environment.Exit(0);
-            }
-        }
 
         private void app_login_Load(object sender, EventArgs e)
         {
@@ -53,20 +37,8 @@ namespace WindowsFormsApp1
                 }
                 string hashedPassword = builder.ToString();
 
-                // Create the SQL query to check the login credentials
-                string query = "SELECT COUNT(*) FROM responsable WHERE login = @login AND pwd = @pwd";
-
-                // Execute the query
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@login", login);
-                    command.Parameters.AddWithValue("@pwd", hashedPassword);
-
-                    int userCount = Convert.ToInt32(command.ExecuteScalar());
-
-                    // If userCount is greater than 0, the credentials are valid
-                    return userCount > 0;
-                }
+                return connectionDb.validateLogin(login, hashedPassword);
+               
             }
         }
 
