@@ -40,33 +40,39 @@ namespace WindowsFormsApp1
 
         private void btn_add_Click(object sender, EventArgs e)
         {
+            
             string nom = input_nom.Text;
             string prenom = input_prenom.Text;
             string mail = input_mail.Text;
             string tel = input_tel.Text;
-            Service selectedService = (Service)cbx_idservice.SelectedItem;
-            int idservice = selectedService.IdService;
+            
 
             if (string.IsNullOrWhiteSpace(nom) || string.IsNullOrWhiteSpace(prenom) || string.IsNullOrWhiteSpace(mail) || string.IsNullOrWhiteSpace(tel) || cbx_idservice.SelectedItem == null)
             {
                 MessageBox.Show("Fields are not completed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            } else
+            {
+
+                Service selectedService = (Service)cbx_idservice.SelectedItem;
+                int idservice = selectedService.IdService;
+
+                DialogResult result = MessageBox.Show("Do you want to add this worker?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        connectionDb.InsertPersonnel(selectedService, nom, prenom, mail, tel, idservice);
+                        MessageBox.Show("Personnel added successfully!");
+                        ClearFields();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                }
             }
 
-            DialogResult result = MessageBox.Show("Do you want to add this worker?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                try
-                {
-                    connectionDb.InsertPersonnel(selectedService, nom, prenom, mail, tel, idservice);
-                    MessageBox.Show("Personnel added successfully!");
-                    ClearFields();
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
-                }
-            }
         }
 
 

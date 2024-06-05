@@ -13,6 +13,7 @@ namespace WindowsFormsApp1
     public partial class modify_absence : Form
     {
         private DataConnection connectionDb;
+        private modify_absence instance;
         private Personnel personnel;
         private Absence absence; 
         public modify_absence(Personnel selectedPersonnel, Absence selectedAbsence)
@@ -23,6 +24,7 @@ namespace WindowsFormsApp1
             SetIntitalValues(selectedPersonnel, selectedAbsence);
             personnel = selectedPersonnel;
             absence = selectedAbsence;
+            instance = this;
         }
 
         private void RecupMotifs()
@@ -53,8 +55,35 @@ namespace WindowsFormsApp1
             int idAbsence = absence.IdAbsence;
             int idPersonnel = personnel.IdPersonnel;
 
-            connectionDb.UpdateAbsence(idAbsence, idPersonnel, idMotif, dateDebut, dateFin);
-            MessageBox.Show("L'absence a été modifié", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            if(dateDebut < dateFin)
+            {
+                if (connectionDb.VerifyAbsence(idPersonnel, dateDebut, dateFin, idAbsence))
+                {
+
+                    DialogResult result = MessageBox.Show("Do you want to modify this absence?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        connectionDb.UpdateAbsence(idAbsence, idPersonnel, idMotif, dateDebut, dateFin);
+                        MessageBox.Show("The absence has been modified", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        instance.Close();
+                    }
+
+                    
+                }
+                else
+                {
+                    MessageBox.Show("There is alerady an absence for this period ! ");
+                }
+            } else
+            {
+                MessageBox.Show("The first date can not be smaller than the second one !");
+
+            }
+
+            
         }
     }
 }

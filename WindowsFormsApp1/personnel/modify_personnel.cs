@@ -57,24 +57,28 @@ namespace WindowsFormsApp1
                 MessageBox.Show("Fields are not completed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            Service selectedService = (Service)cbx_idservice.SelectedItem;
-            int idservice = selectedService.IdService;
-
-            DialogResult result = MessageBox.Show("Do you want to update this worker?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            else
             {
-                try
+                Service selectedService = (Service)cbx_idservice.SelectedItem;
+                int idservice = selectedService.IdService;
+
+                DialogResult result = MessageBox.Show("Do you want to update this worker?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
                 {
-                    connectionDb.UpdatePersonnel(selectedPersonnel.IdPersonnel, nom, prenom, mail, tel, idservice);
-                    MessageBox.Show("Personnel updated successfully!");
-                    this.Close();
-                }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show("Error: " + ex.Message);
+                    try
+                    {
+                        connectionDb.UpdatePersonnel(selectedPersonnel.IdPersonnel, nom, prenom, mail, tel, idservice);
+                        MessageBox.Show("Personnel updated successfully!");
+                        this.Close();
+                    }
+                    catch (MySqlException ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
                 }
             }
+
+            
         }
 
         private void modify_personnel_Load(object sender, EventArgs e)

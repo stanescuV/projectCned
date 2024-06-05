@@ -1,5 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using WindowsFormsApp1.exeption;
 using WindowsFormsApp1.personnel;
@@ -76,7 +78,8 @@ namespace WindowsFormsApp1
         public void GetAbsences(int idPersonnel)
         {
             lstBox_absences.Items.Clear(); // Clear previous items before adding new ones
-            lstBox_absences.Items.AddRange(connectionDb.GetAbsences(idPersonnel).ToArray());
+            List<Absence> listAbsencesOrdonnee = connectionDb.GetAbsences(idPersonnel).OrderBy(x => x.DateDebut).ToList();
+            lstBox_absences.Items.AddRange(listAbsencesOrdonnee.ToArray());
         }
 
         private void btn_modify_personnel_Click(object sender, EventArgs e)

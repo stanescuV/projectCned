@@ -223,6 +223,46 @@ namespace WindowsFormsApp1
             }
         }
 
+        public bool VerifyAbsence(int idPersonnel, DateTime dateDebut, DateTime dateFin)
+        {
+            string query = @"SELECT COUNT(*) AS count
+                            FROM absence
+                            WHERE idpersonnel = @idpersonnel
+                            AND (datedebut <= @dateFin AND datefin >= @dateDebut)";
+
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@idpersonnel", idPersonnel);
+                command.Parameters.AddWithValue("@dateFin", dateFin);
+                command.Parameters.AddWithValue("@dateDebut", dateDebut);
+
+                int count = Convert.ToInt32(command.ExecuteScalar());
+
+                return count < 1; // return un boolean s'il existe déjà des absences sur cetter période 
+            }
+        }
+
+        public bool VerifyAbsence(int idPersonnel, DateTime dateDebut, DateTime dateFin, int idAbsence)
+        {
+            string query = @"SELECT COUNT(*) AS count
+                            FROM absence
+                            WHERE idpersonnel = @idpersonnel
+                            AND (datedebut <= @dateFin AND datefin >= @dateDebut)
+                            AND idabsence != @idAbsence";
+
+            using (MySqlCommand command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@idpersonnel", idPersonnel);
+                command.Parameters.AddWithValue("@idAbsence", idAbsence);
+                command.Parameters.AddWithValue("@dateFin", dateFin);
+                command.Parameters.AddWithValue("@dateDebut", dateDebut);
+
+                int count = Convert.ToInt32(command.ExecuteScalar());
+
+                return count < 1; // return un boolean s'il existe déjà des absences sur cetter période 
+            }
+        }
+
         public string GetTextMotif(int idMotif)
         {
             string message = "";
